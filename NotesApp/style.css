@@ -1,0 +1,553 @@
+/* Import Google Font - Montserrat */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+body {
+  background: #e7f2f8;
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+::selection {
+  color: #fff;
+  background: #182f3c;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.pagination-items {
+  margin: 50px;
+  display: grid;
+  gap: 5%;
+  grid-template-columns: repeat(auto-fill, 30%);
+}
+
+.notes-list {
+  display: none;
+}
+
+li.note {
+  height: 250px;
+  list-style: none;
+  border-radius: 5px;
+  padding: 15px 20px 20px;
+  margin-bottom: 20px;
+  background: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.add-box,
+.icon,
+.bottom-content,
+.popup,
+header,
+.settings .menu li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.add-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background: #182f3c;
+}
+
+.note-heading {
+  font-size: 40px;
+  font-weight: 900;
+  color: #fff;
+}
+
+.add-box {
+  cursor: pointer;
+  justify-content: center;
+  margin-left: auto;
+  align-items: center;
+}
+
+.add-box .icon {
+  height: 78px;
+  width: 78px;
+  color: #fff;
+  font-size: 40px;
+  border-radius: 50%;
+  justify-content: center;
+  border: 2px dashed #fff;
+}
+
+.add-box p {
+  color: #fff;
+  font-weight: 500;
+  margin-right: 20px;
+}
+
+.note {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.note .details {
+  max-height: 165px;
+  overflow-y: auto;
+}
+
+.note .details::-webkit-scrollbar,
+.popup textarea::-webkit-scrollbar {
+  width: 0;
+}
+
+.note .details:hover::-webkit-scrollbar,
+.popup textarea:hover::-webkit-scrollbar {
+  width: 5px;
+}
+
+.note .details:hover::-webkit-scrollbar-track,
+.popup textarea:hover::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 25px;
+}
+
+.note .details:hover::-webkit-scrollbar-thumb,
+.popup textarea:hover::-webkit-scrollbar-thumb {
+  background: #e6e6e6;
+  border-radius: 25px;
+}
+
+.note p {
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.note span {
+  display: block;
+  color: #575757;
+  font-size: 16px;
+  margin-top: 5px;
+}
+
+.note .bottom-content {
+  padding-top: 10px;
+  border-top: 1px solid #ccc;
+}
+
+.bottom-content span {
+  color: #6D6D6D;
+  font-size: 14px;
+}
+
+.bottom-content .settings {
+  position: relative;
+}
+
+.bottom-content .settings i {
+  color: #6D6D6D;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.settings .menu {
+  z-index: 1;
+  bottom: 0;
+  right: -5px;
+  padding: 5px 0;
+  background: #fff;
+  position: absolute;
+  border-radius: 4px;
+  transform: scale(0);
+  transform-origin: bottom right;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease;
+}
+
+.settings.show .menu {
+  transform: scale(1);
+}
+
+.settings .menu li {
+  height: 25px;
+  font-size: 16px;
+  margin-bottom: 2px;
+  padding: 17px 15px;
+  cursor: pointer;
+  box-shadow: none;
+  border-radius: 0;
+  justify-content: flex-start;
+}
+
+.menu li:last-child {
+  margin-bottom: 0;
+}
+
+.menu li:hover {
+  background: #f5f5f5;
+}
+
+.menu li i {
+  padding-right: 8px;
+}
+
+.popup-box {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.popup-box .popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 3;
+  width: 100%;
+  max-width: 400px;
+  justify-content: center;
+  transform: translate(-50%, -50%) scale(0.95);
+}
+
+.popup-box,
+.popup {
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.25s ease;
+}
+
+.popup-box.show,
+.popup-box.show .popup {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.popup-box.show .popup {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.popup .content {
+  border-radius: 5px;
+  background: #fff;
+  width: calc(100% - 15px);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.content header {
+  padding: 15px 25px;
+  border-bottom: 1px solid #ccc;
+}
+
+.content header p {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.content header i {
+  color: #8b8989;
+  cursor: pointer;
+  font-size: 23px;
+}
+
+.content form {
+  margin: 15px 25px 35px;
+}
+
+.content form .row {
+  margin-bottom: 20px;
+}
+
+form .row label {
+  font-size: 18px;
+  display: block;
+  margin-bottom: 6px;
+}
+
+form :where(input, textarea) {
+  height: 50px;
+  width: 100%;
+  outline: none;
+  font-size: 17px;
+  padding: 0 15px;
+  border-radius: 4px;
+  border: 1px solid #999;
+}
+
+form :where(input, textarea):focus {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.11);
+}
+
+form .row textarea {
+  height: 150px;
+  resize: none;
+  padding: 8px 15px;
+}
+
+form button {
+  width: 100%;
+  height: 50px;
+  color: #fff;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  font-size: 17px;
+  border-radius: 4px;
+  background: #182f3c;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.pagination:after {
+  content: "";
+  clear: both;
+}
+
+.pagination-button {
+  display: inline-block;
+  padding: 5px 10px;
+  border: 1px solid #182f3c;
+  background-color: #e7f2f8;
+  color: #182f3c;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin: 0 5px;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination-button:hover {
+  background-color: #182f3c;
+  color: #e7f2f8;
+}
+
+.pagination-button.active {
+  background-color: #182f3c;
+  border-color: #182f3c;
+  color: #e7f2f8;
+}
+
+.pagination-button:first-of-type,
+.pagination-button:last-of-type {
+  border: none;
+  font-size: 25px;
+}
+
+.pagination-button:first-of-type:hover,
+.pagination-button:last-of-type:hover {
+  background-color: #e7f2f8;
+  color: #182f3c;
+}
+
+
+.footer {
+margin-bottom: 0 !important;
+margin-top: auto !important;
+display: flex;
+}
+
+.footer-content {
+  background: #182f3c;
+  width: 100%;
+}
+
+.footer p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 400;
+  color: #fff;
+  padding: 10px;
+}
+
+
+
+@media (max-width: 768px) {
+  .pagination-items {
+    margin: 15px;
+    gap: 3%;
+    grid-template-columns: repeat(auto-fill, 31.3%);
+  }
+
+  .note-heading {
+    font-size: 30px;
+  }
+
+  .add-wrapper {
+    padding: 10px 15px;
+  }
+
+  .add-box .icon {
+    height: 50px;
+    width: 50px;
+    font-size: 30px;
+  }
+
+  .add-box p, .bottom-content span {
+    font-size: 10px;
+  }
+
+  .note p {
+    font-size: 18px;
+  }
+
+  .note span, .bottom-content .settings i, .settings .menu li, .footer p {
+    font-size: 12px;
+  }
+
+  .content header p {
+    font-size: 16px;
+  }
+
+  .content header i {
+    font-size: 20px;
+  }
+
+  form .row label, form :where(input, textarea), form button {
+    font-size: 15px;
+  }
+
+  .pagination-button {
+    width: 25px;
+    height: 25px;
+    font-size: 12px;
+  }
+
+  .pagination-button:first-of-type,
+  .pagination-button:last-of-type {
+    font-size: 22px;
+  }
+
+  .pagination {
+    margin-top: 10px;
+    margin-bottom: 25px;
+  }
+
+  li.note {
+    height: 200px;
+    padding: 10px 15px 15px;
+  }
+
+  .popup .content {
+    width: calc(100% - 50px);
+  }
+
+  .content header {
+    padding: 10px 15px;
+  }
+
+  .content form {
+    margin: 10px 15px 25px;
+  }
+}
+
+@media (max-width: 600px) {
+  .pagination-items {
+    margin: 15px;
+    gap: 10px;
+    grid-template-columns: repeat(auto-fill, 100%);
+  }
+
+  .note-heading {
+    font-size: 25px;
+  }
+
+  .add-wrapper {
+    padding: 7px 12px;
+  }
+
+  .add-box .icon {
+    height: 40px;
+    width: 40px;
+    font-size: 22px;
+  }
+
+  .add-box p {
+    font-size: 8px;
+    margin-right: 5px;
+  }
+
+  .note p {
+    font-size: 16px;
+  }
+
+  .note span, .bottom-content .settings i, .settings .menu li, .footer p {
+    font-size: 10px;
+  }
+
+  .bottom-content span {
+    font-size: 8px;
+  }
+
+  .content header p {
+    font-size: 14px;
+  }
+
+  .content header i {
+    font-size: 18px;
+  }
+
+  form .row label, form :where(input, textarea), form button {
+    font-size: 12px;
+  }
+
+  .pagination-button {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+  }
+
+  .pagination-button:first-of-type,
+  .pagination-button:last-of-type {
+    font-size: 20px;
+  }
+
+  .pagination {
+    margin-top: 5px;
+    margin-bottom: 20px;
+  }
+
+  li.note {
+    height: 150px;
+    padding: 7px 12px 12px;
+  }
+
+  .popup .content {
+    width: calc(100% - 160px);
+  }
+
+  .content header {
+    padding: 7px 12px;
+  }
+
+  .content form {
+    margin: 7px 12px 20px;
+  }
+}
